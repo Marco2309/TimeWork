@@ -12,7 +12,14 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from datetime import timedelta
+import environ
 
+# environt init
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+environ.Env.read_env()
+# environ.Env.read_env()
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,12 +28,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'f!)ms5%$vj@#fbdo%e00oy0q9s7zjs@g)l@smjh-ga-f%2xwjd'
-
+# SECRET_KEY = 'f!)ms5%$vj@#fbdo%e00oy0q9s7zjs@g)l@smjh-ga-f%2xwjd'
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+# DEBUG = True
+DEBUG = env('DEBUG')
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,12 +96,12 @@ WSGI_APPLICATION = 'TIME_WORK.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'TimeWork',
+        'ENGINE': env('ENGINE'),
+        'NAME': env('NAME'),
         'USER': 'postgres',
-        'PASSWORD': 'camedal2309',
+        'PASSWORD': env('PASSWORD'),
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': env('PORT'),
     }
 }
 
@@ -155,7 +162,7 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': False,
 
     'ALGORITHM': 'HS256',
-    'SIGNING_KEY': SECRET_KEY,
+    'SIGNING_KEY': env('SECRET_KEY'),
     'VERIFYING_KEY': None,
     'AUDIENCE': None,
     'ISSUER': None,

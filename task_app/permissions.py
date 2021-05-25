@@ -7,13 +7,12 @@ class TaskPermissions(BasePermission):
     message = "Sorry but you don't have permissions"
 
     def has_permission(self, request, view):
+        if request.method in ['POST', 'PUT']:
+            if request.data['user'] == request.user.id:
+                return True
+            else:
+                return False
         return True
-        # if request.method == 'POST':
-        #     if request.data['user'] == request.user.id:
-        #         return True
-        # if view.action == 'retrieve':
-        #     return True
-        # return False
 
     def has_object_permission(self, request, view, obj):
         if obj.user == request.user:
