@@ -102,7 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-Newsletters/.env
+TIME_WORK/.env
 .env
 .venv
 env/
