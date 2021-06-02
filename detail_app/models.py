@@ -1,10 +1,12 @@
 from django.db import models
 from task_app.models import Task
 # Create your models here.
+# maybe will be best if add  a table of sub details
 
 
 class Detail(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.SET_NULL, null=True, related_name='detail')
+    task = models.ForeignKey(
+        Task, on_delete=models.SET_NULL, null=True, related_name='detail')
     invoice = models.IntegerField()
     type = models.CharField(max_length=10)
     date_time = models.CharField(max_length=200)

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
-from django.contrib.auth.hashers import make_password
 
 
 class UserViewSerializer(ModelSerializer):
@@ -22,5 +21,19 @@ class UserViewSerializer(ModelSerializer):
     def update(self, instance, validated_data):
         update_user = super().update(instance, validated_data)
         update_user.set_password(validated_data['password'])
+        update_user.save()
+        return update_user
+
+
+class PartialUserViewSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['password', 'username', 'email',
+                  'is_active', 'last_login', 'date_joined']
+
+    def update(self, instance, validated_data):
+        update_user = super().update(instance, validated_data)
+        if 'password' in validated_data:
+            update_user.set_password(validated_data['password'])
         update_user.save()
         return update_user
