@@ -19,6 +19,8 @@ class TaskViewSet(ModelViewSet):
         return my_tasks
 
     def create(self, request, *args, **kwargs):
+        if request.auth == None:
+            return Response(data={"message: You need to register"})
         data = request.data
         data['user'] = request.user.id
         serializer = self.get_serializer(data=data)

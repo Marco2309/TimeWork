@@ -19,7 +19,6 @@ class DetailViewSet(ModelViewSet):
         id_user = self.request.user.id
         my_tasks = Task.objects.filter(user_id=id_user)
         my_details = self.queryset.filter(task_id__in=my_tasks)
-        print
         return my_details
 
     def create(self, request, *args, **kwargs):
