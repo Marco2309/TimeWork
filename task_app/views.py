@@ -20,7 +20,7 @@ class TaskViewSet(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         if request.auth == None:
-            return Response(data={"message: You need to register"})
+            return Response(data={"message: You need to register"}, status=status.HTTP_401_UNAUTHORIZED)
         data = request.data
         data['user'] = request.user.id
         serializer = self.get_serializer(data=data)
