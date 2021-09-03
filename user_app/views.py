@@ -30,6 +30,7 @@ def usernameOfEmail(request):
     try:
         email = request.data['email']
         user = User.objects.get(email=email)
-        return Response(status=status.HTTP_200_OK, data={'user': f'{user.username}'})
+        return Response(status=status.HTTP_200_OK, data={'user': f'{user.username}',
+        'id': f'{user.id}'})
     except ObjectDoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
